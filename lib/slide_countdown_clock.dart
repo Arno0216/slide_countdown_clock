@@ -25,6 +25,8 @@ class SlideCountdownClock extends StatefulWidget {
   /// The character(s) to display between the hour divisions: `10 : 20`
   final String separator;
 
+  final String daySeparator;
+
   /// The decoration to place on the container
   final BoxDecoration decoration;
 
@@ -54,6 +56,7 @@ class SlideCountdownClock extends StatefulWidget {
     this.decoration,
     this.tightLabel: false,
     this.separator: "",
+    this.daySeparator: "-",
     this.slideDirection: SlideDirection.Down,
     this.onDone,
     this.shouldShowDays: false,
@@ -138,7 +141,7 @@ class SlideCountdownClockState extends State<SlideCountdownClock> {
       children: <Widget>[
         (shouldShowDays) ? dayDigits : SizedBox(),
         (shouldShowDays) ? _buildSpace() : SizedBox(),
-        (widget.separator.isNotEmpty && shouldShowDays) ? _buildSeparator() : SizedBox(),
+        (widget.separator.isNotEmpty && shouldShowDays) ? _buildDaySeparator() : SizedBox(),
         _buildDigit(
           timeStream,
           (DateTime time) => (timeLeft.inHours % 24) ~/ 10,
@@ -177,6 +180,13 @@ class SlideCountdownClockState extends State<SlideCountdownClock> {
   Widget _buildSeparator() {
     return Text(
       widget.separator,
+      style: widget.separatorTextStyle ?? widget.textStyle,
+    );
+  }
+
+  Widget _buildDaySeparator() {
+    return Text(
+      widget.daySeparator,
       style: widget.separatorTextStyle ?? widget.textStyle,
     );
   }
