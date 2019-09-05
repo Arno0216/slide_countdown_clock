@@ -23,7 +23,7 @@ class Digit<T> extends StatefulWidget {
   _DigitState createState() => _DigitState();
 }
 
-class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
+class _DigitState extends State<Digit> with TickerProviderStateMixin {
   StreamSubscription<int> _streamSubscription;
   int _currentValue = 0;
   int _nextValue = 0;
@@ -50,7 +50,7 @@ class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
     _slideDownAnimation = _controller.drive(_slideDownDetails);
     _slideDownAnimation2 = _controller.drive(_slideDownDetails2);
 
-   /* _controller.addStatusListener((status) {
+    _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _controller.reset();
       }
@@ -69,7 +69,7 @@ class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
         _nextValue = value;
         _controller.forward();
       }
-    });*/
+    });
   }
 
   void animationListener(AnimationStatus status) {
@@ -88,9 +88,7 @@ class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
     try {
       _controller.removeStatusListener(animationListener);
       _streamSubscription.cancel();
-    } catch (ex) {
-
-    }
+    } catch (ex) {}
 
     _controller.addStatusListener(animationListener);
 
@@ -138,7 +136,9 @@ class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
             children: <Widget>[
               haveData
                   ? FractionalTranslation(
-                      translation: (widget.slideDirection == SlideDirection.Down) ? _slideDownAnimation.value : -_slideDownAnimation.value,
+                      translation: (widget.slideDirection == SlideDirection.Down)
+                          ? _slideDownAnimation.value
+                          : -_slideDownAnimation.value,
                       child: ClipRect(
                         clipper: ClipHalfRect(
                           percentage: _slideDownAnimation.value.dy,
@@ -155,7 +155,9 @@ class _DigitState extends State<Digit> with SingleTickerProviderStateMixin {
                     )
                   : SizedBox(),
               FractionalTranslation(
-                translation: (widget.slideDirection == SlideDirection.Down) ? _slideDownAnimation2.value : -_slideDownAnimation2.value,
+                translation: (widget.slideDirection == SlideDirection.Down)
+                    ? _slideDownAnimation2.value
+                    : -_slideDownAnimation2.value,
                 child: ClipRect(
                   clipper: ClipHalfRect(
                     percentage: _slideDownAnimation2.value.dy,
