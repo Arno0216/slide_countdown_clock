@@ -46,7 +46,7 @@ class _DigitState extends State<Digit> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1));
     _slideDownAnimation = _controller.drive(_slideDownDetails);
     _slideDownAnimation2 = _controller.drive(_slideDownDetails2);
 
